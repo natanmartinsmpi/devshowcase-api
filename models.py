@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, Table
+from sqlalchemy import Column, Integer, String, Float, Text, ForeignKey, Table
 from sqlalchemy.orm import relationship
 from database import Base
 
@@ -32,6 +32,8 @@ class Project(Base):
     titulo = Column(String(150), nullable=False)
     descricao = Column(Text)
     url_repositorio = Column(String(200))
+    upvotes = Column(Integer, default=0)
+    media_notas = Column(Float, default=0.0)
     
     # A Chave Estrangeira: liga este projeto ao ID de um perfil
     perfil_id = Column(Integer, ForeignKey("profiles.id"))
@@ -50,6 +52,7 @@ class Feedback(Base):
     __tablename__ = "feedbacks"
 
     id = Column(Integer, primary_key=True, index=True)
+    nota = Column(Integer, nullable=False)
     comentario = Column(Text, nullable=False)
     
     # 1. Crie a Chave Estrangeira apontando para a tabela de projetos (especificamente para o 'id')

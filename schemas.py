@@ -32,6 +32,8 @@ class ProjectResponse(BaseModel):
     titulo: str
     descricao: Optional[str] = None
     perfil_id: int
+    upvotes: int
+    media_notas: float
 
     class Config:
         from_attributes = True
@@ -44,5 +46,17 @@ class TechnologyResponse(BaseModel):
     id: int
     nome: str
 
+    class Config:
+        from_attributes = True
+
+# --- SCHEMAS PARA FEEDBACK ---
+class FeedbackCreate(BaseModel):
+    nota: int = Field(..., ge=1, le=5, description="A nota deve ser entre 1 e 5")
+    comentario: str = Field(..., min_length=3, description="O comentário deve ter no mínimo 3 caracteres")
+class FeedbackResponse(BaseModel):
+    id: int
+    nota: int
+    comentario: str
+    projeto_id: int
     class Config:
         from_attributes = True
